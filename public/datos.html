@@ -26,7 +26,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/users')
+            fetch('https://clientes-cine-rex.onrender.com/users')
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.querySelector('#userTable tbody');
@@ -57,7 +57,7 @@
             const userId = td.getAttribute('data-id');
 
             // Actualizar el estado en el backend
-            fetch('/update-status', {
+            fetch('https://clientes-cine-rex.onrender.com/update-status', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

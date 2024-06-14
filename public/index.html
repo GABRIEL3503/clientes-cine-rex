@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Clientes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="popup" id="welcomePopup">
+        <div class="popup-content">
+            <h2>BIENVENIDO!</h2>
+            <p>Estas a punto de ser parte de club rex y recibir beneficios y novedades exclusivas. Completa con tus datos y recibe tu primer regalo: 2 x 1!!.</p>
+            <button onclick="closePopup('welcomePopup')">Cerrar</button>
+        </div>
+    </div>
+    <div class="popup" id="finishPopup" style="display: none;">
+        <div class="popup-content">
+            <h2>¡Ya casi!</h2>
+            <p>Cuando seas dado de alta te vamos a notificar mediante WhatsApp, y vas a poder disfrutar de tu 2 x 1. No olvides agendarnos para aprovechar al máximo la experiencia club rex.</p>
+            <button onclick="closePopup('finishPopup')">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="step1" class="step animate__animated">
+            <input type="text" id="name" placeholder="Nombre y Apellido" required>
+            <button onclick="nextStep(1)">OK</button>
+        </div>
+        <div id="step2" class="step animate__animated" style="display: none;">
+            <input type="text" id="phone" placeholder="Teléfono" required>
+            <button onclick="nextStep(2)">OK</button>
+        </div>
+        <div id="step3" class="step animate__animated" style="display: none;">
+            <input type="text" id="dni" placeholder="DNI" required>
+            <button onclick="submitForm()">OK</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

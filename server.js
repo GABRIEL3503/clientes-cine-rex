@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta para manejar el registro de usuarios
-app.post('https://clientes-cine-rex.onrender.com/register', (req, res) => {
+app.post('/register', (req, res) => {
     const { name, phone, dni } = req.body;
     const status = 'pendiente';
 
@@ -42,7 +42,7 @@ app.post('https://clientes-cine-rex.onrender.com/register', (req, res) => {
 });
 
 // Ruta para obtener los datos de los usuarios
-app.get('https://clientes-cine-rex.onrender.com/users', (req, res) => {
+app.get('/users', (req, res) => {
     db.all("SELECT * FROM users", (err, rows) => {
         if (err) {
             return res.status(500).json({ error: err.message });
@@ -51,16 +51,8 @@ app.get('https://clientes-cine-rex.onrender.com/users', (req, res) => {
     });
 });
 
-// Ruta para mostrar los datos de los usuarios
-app.get('https://clientes-cine-rex.onrender.com/datos', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'datos.html'));
-});
-
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
 // Ruta para actualizar el estado del usuario
-app.post('https://clientes-cine-rex.onrender.com/update-status', (req, res) => {
+app.post('/update-status', (req, res) => {
     const { id, status } = req.body;
 
     const stmt = db.prepare("UPDATE users SET status = ? WHERE id = ?");
@@ -71,4 +63,13 @@ app.post('https://clientes-cine-rex.onrender.com/update-status', (req, res) => {
         res.json({ message: 'Estado actualizado correctamente' });
     });
     stmt.finalize();
+});
+
+// Ruta para mostrar los datos de los usuarios
+app.get('/datos', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'datos.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

@@ -60,7 +60,7 @@ app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 // Ruta para actualizar el estado del usuario
-app.post('/update-status', (req, res) => {
+app.post('https://clientes-cine-rex.onrender.com/update-status', (req, res) => {
     const { id, status } = req.body;
 
     const stmt = db.prepare("UPDATE users SET status = ? WHERE id = ?");

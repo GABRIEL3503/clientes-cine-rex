@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta para manejar el registro de usuarios
-app.post('/register', (req, res) => {
+app.post('https://clientes-cine-rex.onrender.com/register', (req, res) => {
     const { name, phone, dni } = req.body;
     const status = 'pendiente';
 
@@ -42,7 +42,7 @@ app.post('/register', (req, res) => {
 });
 
 // Ruta para obtener los datos de los usuarios
-app.get('/users', (req, res) => {
+app.get('https://clientes-cine-rex.onrender.com/users', (req, res) => {
     db.all("SELECT * FROM users", (err, rows) => {
         if (err) {
             return res.status(500).json({ error: err.message });
@@ -52,7 +52,7 @@ app.get('/users', (req, res) => {
 });
 
 // Ruta para mostrar los datos de los usuarios
-app.get('/datos', (req, res) => {
+app.get('https://clientes-cine-rex.onrender.com/datos', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'datos.html'));
 });
 

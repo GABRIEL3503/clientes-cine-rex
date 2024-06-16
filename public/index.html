@@ -15,18 +15,19 @@
         <div class="popup-content">
             <img src="img/Rex Logo sin fondo-19.png" alt="">
             <h2>¡Felicitaciones!</h2>
-            <p> <strong> Estas a punto de adeherirte a Club Rex.</strong>Recibí beneficios y novedades exclusivas todas las semanas.</p>
+            <p> <strong>Estás a punto de adherirte a Club Rex.</strong>Recibí beneficios y novedades exclusivas todas las semanas.</p>
             <p>Completá con tus datos y reclamá tu primer beneficio.</p>
             
             <button onclick="closePopup('welcomePopup')">¡Quiero mi 2x1!</button>
-            <P style="font-size: 9px;">Al confirar aceptas recibir mensajes de Cine Rex en tu WhatsApp</P>
+            <P style="font-size: 9px;">Al confirmar aceptas recibir mensajes de Cine Rex en tu WhatsApp.</P>
         </div>
     </div>
     <div class="popup" id="finishPopup" style="display: none;">
-        <div class="popup-content">
+        <div id="popup-final" class="popup-content">
+            <img src="img/Rex Logo sin fondo-19.png" alt="">
             <h2>¡Ya casi!</h2>
-            <p>Cuando seas dado de alta te vamos a notificar mediante WhatsApp, y vas a poder disfrutar de tu 2 x 1. No olvides agendarnos para aprovechar al máximo la experiencia club rex.</p>
-            <button onclick="closePopup('finishPopup')">Cerrar</button>
+            <p>Para finalizar <strong>agendá nuestro WhatsApp,</strong> pronto recibirás un mensaje con tu <br>🎁 <strong> Beneficio de bienvenida </strong> 🎁</p>
+            <button id="callButton">Agendar</button>
         </div>
     </div>
 
@@ -48,14 +49,16 @@
         document.addEventListener('DOMContentLoaded', () => {
             openPopup('welcomePopup');
         });
+        document.getElementById('callButton').addEventListener('click', function() {
+    window.location.href = 'tel:1234567890';
+});
 
         // Preload sounds
         const sounds = {
-            popupOpen: new Audio('sound/level-up-2-199574.mp3'),
             popupClose: new Audio('sound/transition-fleeting-121419.mp3'),
             error: new Audio('sound/error-4-199275.mp3'),
             confirmation: new Audio('sound/marimba-win-f-2-209688.mp3'),
-            transition: new Audio('sound/whipy-woosh-transition-38006.mp3')
+            transition: new Audio('sound/transition-explosion-121425.mp3')
         };
 
         function playSound(sound) {

@@ -2,14 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     openPopup('welcomePopup');
 });
 
-// Preload sounds
-const sounds = {
-    popupOpen: new Audio('sound/level-up-2-199574.mp3'),
-    popupClose: new Audio('sound/transition-fleeting-121419.mp3'),
-    error: new Audio('sound/transition-explosion-121425.mp3'),
-    confirmation: new Audio('sound/marimba-win-f-2-209688.mp3'),
-    transition: new Audio('sound/whipy-woosh-transition-38006.mp3')
-};
 
 function playSound(sound) {
     sound.currentTime = 0; // Reset sound to start

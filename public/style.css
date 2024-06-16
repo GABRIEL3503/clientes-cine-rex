@@ -1,17 +1,23 @@
+
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-image: url('img/fondo.png');
+    background-image: url('img/1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
-    font-family: Arial, sans-serif;
+    font-family: "Archivo", sans-serif;
+
 }
 
+p{
+    font-size: 18px;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -71,19 +77,20 @@ button:hover {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    max-width: 500px;
+    width: 80vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .popup-content h2 {
+    margin-bottom: 42px;
     margin-top: 0;
 }
 
 .popup-content button {
-    padding: 10px 20px;
+    padding: 14px 70px;
     border: none;
     border-radius: 5px;
-    background-color: #034183;
+    background-color: #1B1464;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -115,4 +122,14 @@ button:hover {
 .canjeado {
     background-color: #d9534f;
     color: white;
+}
+
+
+.popup-content img{
+    margin: 20px 0px;
+    width: 104px;
+}
+
+p{
+    line-height:24px
 }

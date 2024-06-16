@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const sounds = {
     popupOpen: new Audio('sound/level-up-2-199574.mp3'),
     popupClose: new Audio('sound/transition-fleeting-121419.mp3'),
-    error: new Audio('sound/error-4-199275.mp3'),
+    error: new Audio('sound/transition-explosion-121425.mp3'),
     confirmation: new Audio('sound/marimba-win-f-2-209688.mp3'),
     transition: new Audio('sound/whipy-woosh-transition-38006.mp3')
 };
@@ -22,7 +22,7 @@ function openPopup(popupId) {
     popup.classList.remove('animate__bounceOut'); // Reset any previous exit animation
     popup.classList.add('animate__bounceIn');
 
-    playSound(sounds.popupOpen);
+    // playSound(sounds.popupOpen);
 
     // Remove the bounceIn class after animation ends to allow it to reapply
     popup.addEventListener('animationend', function handleAnimationEnd() {

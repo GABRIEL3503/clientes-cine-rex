@@ -2,6 +2,7 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -127,6 +128,7 @@ button:hover {
 }
 
 .popup-content button {
+    font-weight: 700;
     width: 320px;
     padding: 14px 0px;
     border: none;
@@ -194,4 +196,15 @@ p{
 @media only screen and (max-width: 767px) {
     th, td {
         font-size: 8px;}
+}
+
+.titles{
+    color: #5e5e5e;
+    background-color: #ffffff;
+   
+}
+
+.img1{
+    margin: 20px 0px;
+    width: 104px;
 }

@@ -9,20 +9,22 @@
 <body>
     <div class="container">
         <h1>Datos de Usuarios Registrados</h1>
-        <table id="userTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>DNI</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los datos se cargarán aquí dinámicamente -->
-            </tbody>
-        </table>
+        <div class="table-wrapper">
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>DNI</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -56,7 +58,6 @@
             const nextStatus = statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
             const userId = td.getAttribute('data-id');
 
-            // Actualizar el estado en el backend
             fetch('/update-status', {
                 method: 'POST',
                 headers: {
@@ -67,7 +68,6 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                // Actualizar el estado visualmente
                 td.textContent = nextStatus;
                 row.className = nextStatus;
             })

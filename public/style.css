@@ -18,20 +18,52 @@ body {
 p{
     font-size: 18px;
 }
+
+/* style.css */
 .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+}
+
+.table-wrapper {
+    max-height: 400px; /* Define la altura máxima del contenedor */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    position: sticky;
+    top: 0; /* Hace que el encabezado sea fijo */
+}
+
+.container {
+    font-size: 9px;
+    color: white;
     justify-content: center;
     display: flex;
-    height: 40vh;
+    height: auto;
     width: 80vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-items: center;
-    background: #fff;
+    /* background: #fdfdfdb5; */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Añadir esto para evitar el reflujo */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 .step {
@@ -157,4 +189,9 @@ button:hover {
 
 p{
     line-height:24px
+}
+
+@media only screen and (max-width: 767px) {
+    th, td {
+        font-size: 8px;}
 }

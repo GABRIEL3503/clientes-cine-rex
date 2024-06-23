@@ -208,3 +208,16 @@ p{
     margin: 20px 0px;
     width: 104px;
 }
+.counter {
+    padding: 4px 12px;
+    background-color: white;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.count-number {
+    font-weight: 700;
+    font-size: 28px;
+    color: #ff5733;
+}

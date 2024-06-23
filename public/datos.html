@@ -28,55 +28,64 @@
             </table>
         </div>
     </div>
+    <div class="counter">
+        <p>Ya son: <span class="count-number">0</span> clientes del Club Rex</p>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('/users')
-                .then(response => response.json())
-                .then(data => {
-                    const tbody = document.querySelector('#userTable tbody');
-                    data.forEach(user => {
-                        const row = document.createElement('tr');
-                        row.classList.add(user.status);
-                        row.innerHTML = `
-                            <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.phone}</td>
-                            <td>${user.dni}</td>
-                            <td class="status" data-id="${user.id}" onclick="changeStatus(this)">${user.status}</td>
-                        `;
-                        tbody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
-        });
-
-        const statuses = ['pendiente', 'agendado', 'notificado', 'canjeado'];
-
-        function changeStatus(td) {
-            const row = td.parentElement;
-            const currentStatus = td.textContent;
-            const nextStatus = statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
-            const userId = td.getAttribute('data-id');
-
-            fetch('/update-status', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id: userId, status: nextStatus }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                td.textContent = nextStatus;
-                row.className = nextStatus;
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        // script.js
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/users')
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.querySelector('#userTable tbody');
+            data.forEach(user => {
+                const row = document.createElement('tr');
+                row.classList.add(user.status);
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.dni}</td>
+                    <td class="status" data-id="${user.id}" onclick="changeStatus(this)">${user.status}</td>
+                `;
+                tbody.appendChild(row);
             });
-        }
+
+            // Actualizar el contador
+            const countNumber = document.querySelector('.count-number');
+            countNumber.textContent = data.length;
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        });
+});
+
+const statuses = ['pendiente', 'agendado', 'notificado', 'canjeado'];
+
+function changeStatus(td) {
+    const row = td.parentElement;
+    const currentStatus = td.textContent;
+    const nextStatus = statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
+    const userId = td.getAttribute('data-id');
+
+    fetch('/update-status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: userId, status: nextStatus }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        td.textContent = nextStatus;
+        row.className = nextStatus;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
     </script>
 </body>
 </html>

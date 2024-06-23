@@ -3,89 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos de Usuarios</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <img class="img1" src="img/Rex Logo sin fondo-18.png" alt="">
-
-    <div class="container">
-        <h1>Datos de Usuarios Registrados</h1>
-        <div class="table-wrapper">
-            <table id="userTable">
-                <thead>
-                    <tr>
-                        <th class="titles">ID</th>
-                        <th class="titles">Nombre</th>
-                        <th class="titles">Teléfono</th>
-                        <th class="titles">DNI</th>
-                        <th class="titles">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se cargarán aquí dinámicamente -->
-                </tbody>
-            </table>
+    <div id="login-form">
+        <h2>Login</h2>
+        <form id="form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div id="protected-content" style="display: none;">
+        <div class="container">
+            <h1>Datos de Usuarios Registrados</h1>
+            <div class="table-wrapper">
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>DNI</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se cargarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="counter">
+            <p>Ya son: <span class="count-number">0</span> clientes del Club Rex</p>
         </div>
     </div>
-    <div class="counter">
-        <p>Ya son: <span class="count-number">0</span> clientes del Club Rex</p>
-    </div>
     <script>
-        // script.js
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('/users')
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector('#userTable tbody');
-            data.forEach(user => {
-                const row = document.createElement('tr');
-                row.classList.add(user.status);
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.dni}</td>
-                    <td class="status" data-id="${user.id}" onclick="changeStatus(this)">${user.status}</td>
-                `;
-                tbody.appendChild(row);
-            });
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            // Actualizar el contador
-            const countNumber = document.querySelector('.count-number');
-            countNumber.textContent = data.length;
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('protected-content').style.display = 'block';
+                    loadUserData();
+                } else {
+                    alert('Invalid credentials');
+                }
+            })
+            .catch(error => console.error('Error:', error));
         });
-});
 
-const statuses = ['pendiente', 'agendado', 'notificado', 'canjeado'];
+        function loadUserData() {
+            const token = localStorage.getItem('token');
+            fetch('/users', {
+                headers: {
+                    'Authorization': token
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('#userTable tbody');
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.classList.add(user.status);
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.dni}</td>
+                        <td class="status" data-id="${user.id}" onclick="changeStatus(this)">${user.status}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
 
-function changeStatus(td) {
-    const row = td.parentElement;
-    const currentStatus = td.textContent;
-    const nextStatus = statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
-    const userId = td.getAttribute('data-id');
+                const countNumber = document.querySelector('.count-number');
+                countNumber.textContent = data.length;
+            })
+            .catch(error => console.error('Error:', error));
+        }
 
-    fetch('/update-status', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: userId, status: nextStatus }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        td.textContent = nextStatus;
-        row.className = nextStatus;
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
+        const statuses = ['pendiente', 'agendado', 'notificado', 'canjeado'];
 
+        function changeStatus(td) {
+            const row = td.parentElement;
+            const currentStatus = td.textContent;
+            const nextStatus = statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
+            const userId = td.getAttribute('data-id');
+            const token = localStorage.getItem('token');
+
+            fetch('/update-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: JSON.stringify({ id: userId, status: nextStatus })
+            })
+            .then(response => response.json())
+            .then(data => {
+                td.textContent = nextStatus;
+                row.className = nextStatus;
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
 </body>
 </html>

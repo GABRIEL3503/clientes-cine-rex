@@ -221,3 +221,17 @@ p{
     font-size: 28px;
     color: #ff5733;
 }
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+
+}
+
+#login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

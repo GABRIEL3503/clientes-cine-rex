@@ -235,3 +235,7 @@ form{
     flex-direction: column;
     align-items: center;
 }
+
+#login-form h2{
+    color: white;
+}
